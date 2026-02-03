@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XL KROSS — Rasmiy Sahifa</title>
+  <meta name="description" content="XL KROSS do'konining ijtimoiy tarmoqlari, manzili va aloqa vositalari.">
+  
+  <meta property="og:title" content="XL KROSS — Rasmiy Sahifa">
+  <meta property="og:description" content="Bizning manzil, ijtimoiy tarmoqlar va aloqa uchun havolalar.">
+  <meta property="og:image" content="https://i.postimg.cc/NMfGh8C2/photo-2026-02-02-16-25-26.jpg">
+  <meta property="og:type" content="website">
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ---------------- UMUMIY SOZLAMALAR ---------------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 15px 90px 15px;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- ORQA FON VIDEO ---------------- */
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -10;
+      background: #000;
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5); /* Video ustidan qoraytirish */
+      z-index: -9;
+      pointer-events: none;
+    }
+
+    /* ---------------- ASOSIY QUTI ---------------- */
+    main.card {
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---------------- PROFIL RASMI ---------------- */
+    .avatar-wrapper {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      margin: 0 auto 20px;
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #fff;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+      background: #fff;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ---------------- SARLAVHA ---------------- */
+    .title-box { margin-bottom: 30px; }
+
+    .main-title {
+      font-size: 32px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 5px;
+      text-shadow: 0 4px 15px rgba(0,0,0,1);
+    }
+
+    .sub-title {
+      font-size: 14px;
+      color: #ddd;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    /* ---------------- TUGMALAR (LINKLAR) ---------------- */
+    .links-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1); /* Shishasimon fon */
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 14px 20px;
+      border-radius: 20px;
+      text-decoration: none;
+      color: #fff;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .btn-icon {
+      width: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .btn-icon i {
+      color: #fff;
+      font-size: 24px;
+    }
+
+    /* Telefon iconni o'girish */
+    .fa-phone-alt { transform: scaleX(-1); }
+
+    .btn-text {
+      flex-grow: 1;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    /* Hover effekti */
+    .btn:active { transform: scale(0.96); background: rgba(255,255,255,0.2); }
+    .btn:hover {
+      border-color: rgba(255,255,255,0.7);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    }
+
+    /* ---------------- ANIMATSIYALAR ---------------- */
+    @keyframes subtleShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      75% { transform: translateX(4px); }
+    }
+    .anim-shake { animation: subtleShake 0.4s ease-in-out; }
+
+    /* ---------------- KARTA (RANGLI) ---------------- */
+    .map-container {
+      margin-top: 15px;
+      border-radius: 20px;
+      overflow: hidden;
+      height: 220px;
+      position: relative;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      background: #eee;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      transition: transform 0.3s;
+    }
+
+    .map-container:hover { transform: scale(1.02); border-color: #fff; }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      /* Filtrlar olib tashlandi - Karta rangli bo'ladi */
+    }
+
+    .map-link-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 10;
+      background: transparent;
+    }
+
+    /* ---------------- UZATISH TUGMASI ---------------- */
+    .share-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 25px;
+      width: 60px;
+      height: 60px;
+      background: #fff;
+      color: #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.6);
+      cursor: pointer;
+      z-index: 100;
+      transition: transform 0.3s;
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+
+    .share-btn:active { transform: scale(0.9); }
+    .share-btn:hover { transform: rotate(15deg) scale(1.1); }
+
+  </style>
+</head>
+<body>
+
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="video_2026-02-03_03-01-29.mp4" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
+
+  <main class="card">
+    
+    <div class="avatar-wrapper">
+      <div class="avatar">
+        <img src="https://i.postimg.cc/NMfGh8C2/photo-2026-02-02-16-25-26.jpg" alt="XL KROSS Logo">
+      </div>
+    </div>
+
+    <div class="title-box">
+      <h1 class="main-title">XL KROSS</h1>
+      <span class="sub-title">ESTD 2021</span>
+    </div>
+
+    <div class="links-container">
+      
+      <a href="tel:+998990701166" class="btn">
+        <div class="btn-icon"><i class="fas fa-phone-alt"></i></div>
+        <span class="btn-text">Telefon raqam</span>
+      </a>
+
+      <a href="https://t.me/xlkross" target="_blank" class="btn">
+        <div class="btn-icon"><i class="fab fa-telegram-plane"></i></div>
+        <span class="btn-text">Telegram Kanal</span>
+      </a>
+
+      <a href="https://t.me/xlkross_admin" target="_blank" class="btn">
+        <div class="btn-icon"><i class="fas fa-user-shield"></i></div>
+        <span class="btn-text">Telegram Admin</span>
+      </a>
+
+      <a href="https://t.me/Xlkrossbot" target="_blank" class="btn">
+        <div class="btn-icon"><i class="fab fa-telegram-plane"></i></div>
+        <span class="btn-text">Telegram Bot</span>
+      </a>
+
+      <a href="https://nyr8up-wg.myshopify.com/" target="_blank" class="btn">
+        <div class="btn-icon"><i class="fas fa-globe"></i></div>
+        <span class="btn-text">Bizning Sayt</span>
+      </a>
+
+      <a href="https://www.instagram.com/xl.kross?utm_source=qr&igsh=MWoyc3RrdXJzeGV6Nw==" target="_blank" class="btn">
+        <div class="btn-icon"><i class="fab fa-instagram"></i></div>
+        <span class="btn-text">Instagram</span>
+      </a>
+
+      <div class="map-container">
+        <iframe src="https://yandex.ru/map-widget/v1/?ll=69.173062%2C41.289005&z=17&pt=69.173062%2C41.289005,pm2blm" allowfullscreen="true"></iframe>
+        <a href="https://yandex.ru/maps?whatshere%5Bpoint%5D=69.17306165458392%2C41.28900535950431&whatshere%5Bzoom%5D=16.0&ll=69.17299721297108%2C41.289044355367494&z=16.0" target="_blank" class="map-link-overlay" aria-label="Xaritani ochish"></a>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="share-btn" onclick="sharePage()">
+    <i class="fas fa-share-alt"></i>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.btn');
+    
+    function triggerShake() {
+      buttons.forEach((btn, index) => {
+        setTimeout(() => {
+          btn.classList.add('anim-shake');
+          setTimeout(() => btn.classList.remove('anim-shake'), 400);
+        }, index * 150); 
+      });
+    }
+
+    setInterval(triggerShake, 4000);
+
+    function sharePage() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'XL KROSS - Rasmiy Sahifa',
+          text: 'XL KROSS do\'konining ijtimoiy tarmoqlar va aloqa sahifasi.',
+          url: window.location.href
+        }).catch((error) => console.log('Xatolik:', error));
+      } else {
+        const tempInput = document.createElement("input");
+        tempInput.value = window.location.href;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+        alert("Havola nusxalandi!");
+      }
+    }
+  </script>
+
+</body>
+</html>
